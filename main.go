@@ -1,38 +1,88 @@
-// tickets.go
-// tickets.go
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"math/rand"
+	"os"
+	"strings"
 )
 
-const secondsPerDay = 86400
-
 func main() {
-	distance := 62100000
-	company := ""
-	trip := ""
-	fmt.Println("Spaceline        Days Trip type  Price")
-	fmt.Println("======================================")
-	for count := 0; count < 10; count++ {
-		switch rand.Intn(3) {
-		case 0:
-			company = "Space Adventures"
-		case 1:
-			company = "SpaceX"
-		case 2:
-			company = "Virgin Galactic"
+	tasks := []string{}
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for {
+		fmt.Println("\nTo-Do List Menu:")
+		fmt.Println("1. View Tasks")
+		fmt.Println("2. Add Task")
+		fmt.Println("3. Remove Task")
+		fmt.Println("4. Exit")
+		fmt.Print("Choose an option: ")
+
+		if !scanner.Scan() {
+			fmt.Println("Error reading input.")
+			break
 		}
-		speed := rand.Intn(15) + 16                  // 16-30 km/s
-		duration := distance / speed / secondsPerDay // days
-		price := 20.0 + speed                        // millions
-		if rand.Intn(2) == 1 {
-			trip = "Round-trip"
-			price = price * 2
-		} else {
-			trip = "One-way"
+		choice := strings.TrimSpace(scanner.Text())
+
+		switch choice {
+		case "1":
+			viewTasks(tasks)
+		case "2":
+			tasks = addTask(tasks, scanner)
+		case "3":
+			tasks = removeTask(tasks, scanner)
+		case "4":
+			fmt.Println("Goodbye!")
+			return
+		default:
+			fmt.Println("Invalid option. Please try again.")
 		}
-		fmt.Printf("%-16v %4v %-10v $%4v\n", company, duration, trip, price)
 	}
+}
+
+func viewTasks(tasks []string) {
+	if len(tasks) == 0 {
+		fmt.Println("Your to-do list is empty.")
+		return
+	}
+
+	fmt.Println("\nYour Tasks:")
+	for i, task := range tasks {
+		fmt.Printf("%d. %s\n", i+1, task)
+	}
+}
+
+func addTask(tasks []string, scanner *bufio.Scanner) []string {
+	fmt.Print("Enter the task to add: ")
+	if scanner.Scan() {
+		task := strings.TrimSpace(scanner.Text())
+		if task != "" {
+			tasks = append(tasks, task)
+			fmt.Println("Task added successfully.")
+		} else {
+			fmt.Println("Task cannot be empty.")
+		}
+	}
+	return tasks
+}
+
+func removeTask(tasks []string, scanner *bufio.Scanner) []string {
+	if len(tasks) == 0 {
+		fmt.Println("Your to-do list is empty. Nothing to remove.")
+		return tasks
+	}
+
+	fmt.Print("Enter the number of the task to remove: ")
+	if scanner.Scan() {
+		var index int
+		_, err := fmt.Sscanf(scanner.Text(), "%d", &index)
+		if err != nil || index < 1 || index > len(tasks) {
+			fmt.Println("Invalid task number.")
+		} else {
+			tasks = append(tasks[:index-1], tasks[index:]...)
+			fmt.Println("Task removed successfully.")
+		}
+	}
+	return tasks
 }
