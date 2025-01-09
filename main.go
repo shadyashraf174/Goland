@@ -17,4 +17,5 @@ func changUsingPointer(s *string) {
 	log.Println("s is set to", s)
 	newValue := "Red"
 	*s = newValue
+
 }
