@@ -2,20 +2,23 @@ package main
 
 import "log"
 
-func main() {
-
-	var myString string
-	myString = "Green"
-	log.Println("")
-	log.Println("myString is set to", myString)
-	changUsingPointer(&myString)
-	log.Println("myString is set to", myString)
-	log.Println("")
+type myStruct struct {
+	FirstName string
 }
 
-func changUsingPointer(s *string) {
-	log.Println("s is set to", s)
-	newValue := "Red"
-	*s = newValue
+func (m *myStruct) printFirstName() string {
+	return m.FirstName
+}
+
+func main() {
+	var myVar myStruct
+	myVar.FirstName = "shady"
+
+	myVar2 := myStruct{
+		FirstName: "Ashraf",
+	}
+
+	log.Println(myVar.printFirstName())
+	log.Println(myVar2.printFirstName())
 
 }
