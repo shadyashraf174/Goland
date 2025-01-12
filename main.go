@@ -2,46 +2,57 @@ package main
 
 import "log"
 
-type User struct {
-	FirstName string
-	LastName  string
+type Animal interface {
+	Says() string
+	NumberOfLegs() int
+}
+
+type Dog struct {
+	Name  string
+	Breed string
+}
+
+type Gorilla struct {
+	Name          string
+	Color         string
+	NumberOfTeeth int
 }
 
 func main() {
 
-	// for i := 0; i <= 10; i++ {
-
-	// }
-
-	// mySlice := []string{"shady", "ahmed", "ashraf"}
-	// for _, x := range mySlice {
-	// 	log.Println(x)
-	// }
-
-	// myMap := make(map[string]string)
-	// myMap["dog"] = "dog"
-	// myMap["cat"] = "cat"
-	// myMap["fish"] = "fish"
-
-	// for i, x := range myMap {
-	// 	log.Println(i, x)
-	// }
-
-	var mySlice []User
-	u1 := User{
-		FirstName: "shady",
-		LastName:  "Ashraf",
-	}
-	u2 := User{
-		FirstName: "Ahmed",
-		LastName:  "Ashraf",
+	dog := Dog{
+		Name:  "Samson",
+		Breed: "shady",
 	}
 
-	mySlice = append(mySlice, u1)
-	mySlice = append(mySlice, u2)
+	PrintInfo(dog)
 
-	for _, x := range mySlice {
-		log.Println(x.FirstName)
+	gorilla := Gorilla{
+		Name:          "King Kong",
+		Color:         "Black",
+		NumberOfTeeth: 32,
 	}
 
+	PrintInfo(gorilla)
+
+}
+
+func (d Dog) Says() string {
+	return "woof"
+}
+
+func (d Dog) NumberOfLegs() int {
+	return 4
+}
+
+func (d Gorilla) Says() string {
+	return "grunt"
+}
+
+func (d Gorilla) NumberOfLegs() int {
+	return 2
+}
+
+func PrintInfo(a Animal) {
+	log.Println("This animal says", a.Says(), "and has", a.NumberOfLegs(), "Legs")
 }
