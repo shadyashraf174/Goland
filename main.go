@@ -1,40 +1,47 @@
 package main
 
-import (
-	"log"
-	"net/http"
-)
+import "log"
+
+type User struct {
+	FirstName string
+	LastName  string
+}
 
 func main() {
 
-	// var isTrue bool
-	// isTrue = false
+	// for i := 0; i <= 10; i++ {
 
-	// if isTrue == true {
-	// 	log.Println(isTrue)
-	// } else {
-	// 	log.Println("nothing")
 	// }
 
-	cat := "cat"
-
-	// if cat == "cat" {
-	// 	log.Println("isTrue")
-	// } else {
-	// 	log.Println("isNotTrue")
+	// mySlice := []string{"shady", "ahmed", "ashraf"}
+	// for _, x := range mySlice {
+	// 	log.Println(x)
 	// }
 
-	switch cat {
-	case "cat":
-		log.Println("cat is set to cat")
+	// myMap := make(map[string]string)
+	// myMap["dog"] = "dog"
+	// myMap["cat"] = "cat"
+	// myMap["fish"] = "fish"
 
-	case "dog":
-		log.Println("cat is set to dog")
+	// for i, x := range myMap {
+	// 	log.Println(i, x)
+	// }
 
-	default:
-		log.Println("cat is set to somthing else")
+	var mySlice []User
+	u1 := User{
+		FirstName: "shady",
+		LastName:  "Ashraf",
+	}
+	u2 := User{
+		FirstName: "Ahmed",
+		LastName:  "Ashraf",
+	}
+
+	mySlice = append(mySlice, u1)
+	mySlice = append(mySlice, u2)
+
+	for _, x := range mySlice {
+		log.Println(x.FirstName)
 	}
 
 }
-
-//01:42:10
