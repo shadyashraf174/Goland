@@ -6,13 +6,26 @@ import (
 	"github.com/shadyashraf174/myniceprogram/helpers"
 )
 
-func main() {
-	log.Println("Hello")
+const numberPool = 1000
 
-	var myvar helpers.SomeType
-
-	myvar.TypeName = "Shady"
-	log.Println(myvar.TypeName)
+func CalculateValue(intChan chan int) {
+	randomNumber := helpers.RandomNumber(numberPool)
+	intChan <- randomNumber
 }
 
-// 02:04:35
+func main() {
+	// pln("Hi")
+
+	intChan := make(chan int)
+	defer close(intChan)
+
+	go CalculateValue(intChan)
+
+	num := <-intChan
+	log.Println(num)
+
+}
+
+// func pln(s string) {
+// 	log.Println(s)
+// }
