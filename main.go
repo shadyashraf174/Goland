@@ -2,40 +2,19 @@ package main
 
 import "fmt"
 
-type WeaponType int
-
-const (
-	Axe WeaponType = iota // increment
-	Sword
-	Woodenstick
-	Knife
-)
-
-func (w WeaponType) String() string {
-	switch w {
-	case Sword:
-		return "SWORD"
-	case Axe:
-		return "AXE"
-	}
-	return ""
-}
-
-func getDomage(weaponType WeaponType) int {
-	switch weaponType {
-	case Axe:
-		return 100
-	case Sword:
-		return 70
-	case Woodenstick:
-		return 20
-	case Knife:
-		return 60
-	default:
-		panic("Weapon does not exist")
-	}
-}
-
 func main() {
-	fmt.Printf("damage of weapon (%s) (%d):\n", Axe, getDomage(Axe))
+
+	users := map[string]int{
+		"foo": 1,
+		"bar": 2,
+		"Ali": 3,
+		"Bob": 4,
+		"brr": 5,
+	}
+
+	//names := []string{"a", "b", "c", "d", "f"}
+
+	for key, value := range users {
+		fmt.Printf("key %s value %d\n", key, value)
+	}
 }
